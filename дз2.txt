@@ -1,0 +1,46 @@
+CREATE TABLE IF NOT EXISTS Сборники(
+	id SERIAL primary KEY, 
+	Название VARCHAR(120) not null,
+	год_выпуска VARCHAR(60) not null
+);
+
+CREATE TABLE IF NOT EXISTS Альбомы(
+	id SERIAL primary KEY, 
+	Название VARCHAR(120) not null,
+	год_выпуска VARCHAR(60) not null
+);
+
+CREATE TABLE IF NOT EXISTS Треки(
+	id SERIAL primary KEY, 
+	Название_трека VARCHAR(60) not null,
+	длительность VARCHAR(120) not null,
+	Альбом_id INTEGER NOT NULL REFERENCES Альбомы(id)
+);
+
+CREATE TABLE IF NOT EXISTS Сборники_треки(
+	id SERIAL primary KEY, 
+	Трек_id INTEGER NOT NULL REFERENCES Треки(id),
+	Сборник_id INTEGER NOT NULL REFERENCES Сборники(id)
+);
+	
+CREATE TABLE IF NOT EXISTS Исполнители(
+	id SERIAL primary KEY, 
+	Название VARCHAR(120) not null
+);
+
+CREATE TABLE IF NOT EXISTS Исп_Альбомы(
+	id SERIAL primary KEY,
+	Альбом_id INTEGER NOT NULL REFERENCES Альбомы(id),
+	Исполнитель_id INTEGER NOT NULL REFERENCES Исполнители(id)
+);
+
+CREATE TABLE IF NOT EXISTS Жанры(
+	id SERIAL primary KEY, 
+	Название_жанра VARCHAR(120) not null
+);
+
+CREATE TABLE IF NOT EXISTS Исп_Жанры(
+	id SERIAL primary KEY,
+	Исполнитель_id INTEGER NOT NULL REFERENCES Исполнители(id),
+	Жанр_id INTEGER NOT NULL REFERENCES Жанры(id)
+);
